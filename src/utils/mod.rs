@@ -52,7 +52,7 @@ pub fn extract_hash_from_contract_bundle(path: &PathBuf) -> String {
         .to_string()
 }
 
-/// Asserts that the `substrate-contracts-node` process is running.
+/// Asserts that the `substrate-contracts-node` or `aleph-node` process is running.
 pub fn assert_node_running() {
     let processes = processes().expect("can't get processes");
     let node_running = processes
@@ -64,6 +64,7 @@ pub fn assert_node_running() {
         .any(|str| {
             str.contains("substrate-contracts-node ")
                 || str.contains("substrate-contracts-node-rand-extension ")
+                || str.contains("aleph-node ")
         });
     assert!(
         node_running,
